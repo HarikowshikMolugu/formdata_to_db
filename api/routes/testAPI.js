@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-// Create a Sequelize instance and connect to the database
+
 const sequelize = new Sequelize('mynew', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
@@ -37,7 +37,7 @@ const FormData = sequelize.define('FormData', {
   },
 });
 
-// Sync the model with the database (create the table if it doesn't exist)
+
 sequelize.sync().then(() => {
   console.log('Table created or already exists');
 }).catch((error) => {
@@ -69,10 +69,10 @@ formRouter.post('/', async (req, res) => {
   }
 });
 
-// Retrieve all form entries
+
 formRouter.get('/', async (req, res) => {
   try {
-    // Retrieve all form data from the database
+   
     const formData = await FormData.findAll();
     
     res.status(200).json(formData);
@@ -82,7 +82,7 @@ formRouter.get('/', async (req, res) => {
   }
 });
 
-// Register the form data API routes
+
 app.use('/testAPI', formRouter);
 
 module.exports=formRouter;
