@@ -36,14 +36,17 @@ const FormData = sequelize.define('FormData', {
     allowNull: false,
   },
 });
-
-
+sequelize.authenticate().then(() => {
+    console.log('database connected successfully.');
 sequelize.sync().then(() => {
   console.log('Table created or already exists');
 }).catch((error) => {
   console.error('Error syncing the model with the database:', error);
 });
-
+})
+.catch((error) => {
+  console.error('Unable to connect to the database:', error);
+});
 // Define the form data API routes
 const formRouter = express.Router();
 
@@ -86,3 +89,4 @@ formRouter.get('/', async (req, res) => {
 app.use('/testAPI', formRouter);
 
 module.exports=formRouter;
+
